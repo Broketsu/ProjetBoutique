@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bienvenue</title>
+    <title>Boutik du turfu</title>
     <meta charset="utf-8">
     <?php
     session_start();
@@ -23,7 +23,7 @@
 
   <body>
     <div align="center">
-      <h1>Bienvenue sur le site officiel de la M2L !</h1>
+      <h1>Bienvenue sur le site officiel de la BOUTIQUE DU TURFU !</h1>
     </div>
 
 
