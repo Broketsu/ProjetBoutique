@@ -7,7 +7,7 @@
     session_start();
 
     #connexion bdd
-    $bdd = new PDO('mysql:host=127.0.0.1;dbname=boutique', 'root', '');
+    $bdd = new PDO('mysql:host=127.0.0.1;dbname=ppe', 'root', '');
     #verif contenu formulaire
     if(isset($_POST['submitconnect']))
     {
@@ -15,16 +15,16 @@
       $mdpconnect = sha1($_POST['mdpconnect']);
       if(!empty($_POST['pseudoconnect']) AND !empty($_POST['mdpconnect']))
       {
-        $requser = $bdd->prepare("SELECT * FROM client WHERE nom = ? AND password = ?");
+        $requser = $bdd->prepare("SELECT * FROM infoclient WHERE user = ? AND mdp = ?");
         $requser->execute(array($pseudoconnect, $mdpconnect));
         $userexist = $requser->rowCount();
         if($userexist == 1)
         {
           $userinfo = $requser->fetch();
           $_SESSION['id'] = $userinfo['id'];
-          $_SESSION['pseudo'] = $userinfo['nom'];
-          $_SESSION['mdp'] = $userinfo['password'];
-          header("Location: profil.php?id=".$_SESSION['id']);
+          $_SESSION['pseudo'] = $userinfo['user'];
+          $_SESSION['mdp'] = $userinfo['mdp'];
+          header("Location: main.php?id=".$_SESSION['id']);
         }
         else {
           $erreur = "Nom d'utilisateur ou mot de passe incorrect...";
@@ -62,7 +62,7 @@
               <label for="pseudo">Pseudo :</label>
             </td>
             <td align="right">
-              <input type="text" placeholder="Votre pseudo" id="pseudoconnect" name="pseudoconnect" />
+              <input type="text" placeholder="Votre pseudo" id="pseudoconnect" name="pseudoconnect" value="<?php if(isset($_POST['pseudoconnect'])){ echo $_POST['pseudoconnect']; }?>"/>
             </td>
           </tr>
           <tr>
